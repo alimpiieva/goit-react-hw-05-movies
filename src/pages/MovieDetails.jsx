@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, Outlet, useParams, useLocation } from "react-router-dom";
 import { Suspense } from "react";
 import getMovieDetails from "components/Api/ApiMovieDetails.jsx";
-import getMovieReviews from "components/Api/ApiReviews.jsx";
-import getMovieCredits from "components/Api/ApiCast.jsx";
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -12,52 +10,39 @@ const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   const [showReviews, setShowReviews] = useState(false);
   const [showCast, setShowCast] = useState(false);
-  const [reviews, setReviews] = useState([]);
-  const [cast, setCast] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
-      const details = await getMovieDetails(movieId);
-      setMovieDetails(details);
+      setIsLoading(true);
+      try {
+        const details = await getMovieDetails(movieId);
+        setMovieDetails(details);
+        setIsLoading(false);
+      } catch (error) {
+        setError(error);
+        setIsLoading(false);
+      }
     };
     fetchMovieDetails();
   }, [movieId]);
 
   useEffect(() => {
     if (showReviews) {
-      const fetchMovieReviews = async () => {
-        const reviewsData = await getMovieReviews(movieId);
-        if (reviewsData) {
-          setReviews(reviewsData.results);
-        }
-      };
-      fetchMovieReviews();
-    }
-  }, [movieId, showReviews]);
-
-  useEffect(() => {
-    if (showCast) {
-      const fetchMovieCredits = async () => {
-        const credits = await getMovieCredits(movieId);
-        if (credits) {
-          setCast(credits.cast);
-        }
-      };
-      fetchMovieCredits();
-    }
-  }, [movieId, showCast]);
-
-  useEffect(() => {
-    if (showCast) {
+      setShowCast(false);
+    } else if (showCast) {
       setShowReviews(false);
     }
-  }, [showCast]);
+  }, [showReviews, showCast]);
 
-  useEffect(() => {
-    if (showReviews) {
-      setShowCast(false);
-    }
-  }, [showReviews]);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <p>Oops... Something went wrong...</p>;
+  }
 
   if (!movieDetails) {
     return <div>Loading...</div>;
@@ -90,43 +75,6 @@ const MovieDetails = () => {
       <Suspense fallback={<div>Loading details...</div>}>
         <Outlet />
       </Suspense>
-
-      {showCast && (
-        <div>
-          <h2>Cast</h2>
-          <ul>
-            {cast.map((actor) => (
-              <li key={actor.id}>
-                <p>Name: {actor.name}</p>
-                {actor.profile_path && (
-                  <img
-                    src={`https://image.tmdb.org/t/p/w300/${actor.profile_path}`}
-                    alt={actor.name}
-                  />
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {showReviews && (
-        <>
-          <h2>Reviews</h2>
-          {reviews.length > 0 ? (
-            <ul>
-              {reviews.map((review) => (
-                <li key={review.id}>
-                  <p>Author: {review.author}</p>
-                  <p>{review.content}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>Nothing to show</p>
-          )}
-        </>
-      )}
     </>
   );
 };

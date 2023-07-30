@@ -9,6 +9,7 @@ const Cast = lazy(() => import('components/Cast/Cast.jsx'));
 const Reviews = lazy(() => import('components/Reviews/Reviews.jsx'));
 const ErrorPage = lazy(() => import('pages/ErrorPage.jsx'));
 
+
 const App = () => {
   return (
       <Routes>

@@ -1,11 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
 import { useState , useEffect} from "react";
 import getPopularMovies from "components/Api/Api";
-
+import MoviesList from "components/MovieList/MovieList";
 
 const HomePage = () => {
     const [popularMovies, setPopularMovies] = useState([]);
-    const location = useLocation();
+   
 
     useEffect(() => {
         const fetchPopularMovies = async () => {
@@ -21,20 +20,10 @@ const HomePage = () => {
 
     return (
         <div>
-            <h1>Trending today</h1>
-            <ul>
-                {popularMovies.map(movie => {
-                    return (
-                        <li key={movie.id}>
-                            <Link to={`/movies/${movie.id}`} state={{ from: location }}>
-                                {movie.title}
-                            </Link>
-                        </li>
-                    );
-                })}
-            </ul>
-        </div>
-    );
+      <h1>Trending today</h1>
+      <MoviesList movies={popularMovies} />
+    </div>
+  );
 };
 
 export default HomePage;
