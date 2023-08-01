@@ -9,22 +9,20 @@ const Cast = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (movieId !== "") {
-      const fetchMovieCredits = async () => {
-        setIsLoading(true);
-        try {
-          const credits = await getMovieCredits(movieId);
-          if (credits) {
-            setCast(credits.cast);
-          }
-          setIsLoading(false);
-        } catch (error) {
-          setError(error);
-          setIsLoading(false);
+    const fetchMovieCredits = async () => {
+      setIsLoading(true);
+      try {
+        const credits = await getMovieCredits(movieId);
+        if (credits) {
+          setCast(credits.cast);
         }
-      };
-      fetchMovieCredits();
-    }
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchMovieCredits();
   }, [movieId]);
 
   if (isLoading) {
