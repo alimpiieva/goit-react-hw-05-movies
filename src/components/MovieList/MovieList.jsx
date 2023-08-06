@@ -27,7 +27,7 @@ MoviesList.protoTypes = {
       id: PropTypes.number.isRequiered,
       title: PropTypes.string.isRequiered,
     })
-  ).isRequiered,
+  ).isRequired,
 };
 
 
