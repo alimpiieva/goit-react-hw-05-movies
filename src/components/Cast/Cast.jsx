@@ -7,7 +7,8 @@ const Cast = () => {
   const [cast, setCast] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const defaultImg = 'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
+    
   useEffect(() => {
     const fetchMovieCredits = async () => {
       setIsLoading(true);
@@ -40,11 +41,13 @@ const Cast = () => {
         {cast.map((actor) => (
           <li key={actor.id}>
             <p>Name: {actor.name}</p>
-            {actor.profile_path && (
+            {actor.profile_path ? (
               <img
                 src={`https://image.tmdb.org/t/p/w300/${actor.profile_path}`}
                 alt={actor.name}
               />
+            ) : (
+                <img src={defaultImg} alt={actor.name} />
             )}
           </li>
         ))}
