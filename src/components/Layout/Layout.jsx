@@ -14,33 +14,22 @@ const Layout = () => {
           <span className='navbar-brand text-success'>
             Navbar
           </span>
-          <button
-            className='navbar-toggler'
-            type='button'
-            data-bs-toggle='collapse'
-            data-bs-target='#navbarNavAltMarkup'
-            aria-controls='navbarNavAltMarkup'
-            aria-expanded='false'
-            aria-label='Toggle navigation'
-          >
-            <span className='navbar-toggler-icon'></span>
-          </button>
-          <div className='collapse navbar-collapse' id='navbarNavAltMarkup'>
+          <div className='navbar-collapse'>
             <div className='navbar-nav ml-auto'>
               <NavLink
                 isActive={isActiveLink}
-                className='nav-link text-info'
+                className='nav-link text-info btn btn-outline-info rounded-pill m-1'
                 aria-current='page'
                 to='/'
               >
-                Home
+                <span className="nav-text font-weight-bold text-white">Home</span>
               </NavLink>
               <NavLink
                 isActive={isActiveLink}
-                className='nav-link text-info'
+                className='nav-link text-info btn btn-outline-info rounded-pill m-1'
                 to='/movies'
               >
-                Movies
+                <span className="nav-text font-weight-bold text-white">Movies</span>
               </NavLink>
             </div>
           </div>
