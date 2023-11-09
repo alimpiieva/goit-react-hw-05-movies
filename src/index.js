@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { StrictMode } from 'react';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <BrowserRouter basename="/goit-react-hw-05-movies">
+  <BrowserRouter basename="/goit-react-movies/">
     <StrictMode>
       <App />
     </StrictMode>
