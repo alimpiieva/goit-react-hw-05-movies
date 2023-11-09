@@ -1,48 +1,56 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles.css';
 
 const Layout = () => {
   const isActiveLink = (match, location) => {
     return location.pathname === match?.url;
   };
-  
+
   return (
     <header>
-      <nav className='navbar bg-dark mb-3 navbar-expand-md'>
-        <div className='container-fluid'>
-          <span className='navbar-brand mb-0 h1 text-success'>
+      <nav className='navbar navbar-expand-md navbar-dark bg-dark mb-3'>
+        <div className='container'>
+          <span className='navbar-brand text-success'>
             Navbar
           </span>
-          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav">
+          <button
+            className='navbar-toggler'
+            type='button'
+            data-toggle='collapse'
+            data-target='#navbarNavAltMarkup'
+            aria-controls='navbarNavAltMarkup'
+            aria-expanded='false'
+            aria-label='Toggle navigation'
+          >
+            <span className='navbar-toggler-icon'></span>
+          </button>
+          <div className='collapse navbar-collapse' id='navbarNavAltMarkup'>
+            <div className='navbar-nav ml-auto'>
               <NavLink
                 isActive={isActiveLink}
-                className="nav-link  text-white "
-                aria-current="page"
-                to="/"
+                className='nav-link text-info btn btn-outline-info rounded-pill m-1'
+                aria-current='page'
+                to='/'
               >
-                Home
+                <span className="nav-text font-weight-bold text-white">Home</span>
               </NavLink>
               <NavLink
                 isActive={isActiveLink}
-                className="nav-link text-white"
-                to="/movies"
+                className='nav-link text-info btn btn-outline-info rounded-pill m-1'
+                to='/movies'
               >
-                Movies
+                <span className="nav-text font-weight-bold text-white">Movies</span>
               </NavLink>
             </div>
           </div>
         </div>
       </nav>
-       <Suspense fallback={<div>Loading...</div>}>
-          <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
       </Suspense>
     </header>
   );
-}
+};
 
 export default Layout;
-
-
