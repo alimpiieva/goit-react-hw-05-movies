@@ -29,18 +29,18 @@ const Layout = () => {
             <div className='navbar-nav ml-auto'>
               <NavLink
                 isActive={isActiveLink}
-                className='nav-link text-info btn btn-outline-info rounded-pill m-1'
+                className='nav-link text-info'
                 aria-current='page'
                 to='/'
               >
-                <span className="nav-text font-weight-bold text-white">Home</span>
+                Home
               </NavLink>
               <NavLink
                 isActive={isActiveLink}
-                className='nav-link text-info btn btn-outline-info rounded-pill m-1'
+                className='nav-link text-info'
                 to='/movies'
               >
-                <span className="nav-text font-weight-bold text-white">Movies</span>
+                Movies
               </NavLink>
             </div>
           </div>
