@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import getMovieCredits from "components/Api/ApiCast.jsx";
 import { useParams } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -27,27 +28,28 @@ const Cast = () => {
   }, [movieId]);
 
   if (isLoading) {
-    return <div>Loading cast...</div>;
+    return <div className="text-center">Loading cast...</div>;
   }
 
   if (error) {
-    return <p>Oops... Something went wrong while fetching cast...</p>;
+    return <p className="text-danger text-center">Oops... Something went wrong while fetching cast...</p>;
   }
 
   return (
     <div>
-      <h2>Cast</h2>
-      <ul>
+      <h2 className="text-center">Cast</h2>
+      <ul className="list-unstyled d-flex justify-content-center">
         {cast.map((actor) => (
-          <li key={actor.id}>
-            <p>Name: {actor.name}</p>
+          <li key={actor.id} className="text-center mx-3">
+            <p className="mb-1">Name: {actor.name}</p>
             {actor.profile_path ? (
               <img
                 src={`https://image.tmdb.org/t/p/w300/${actor.profile_path}`}
                 alt={actor.name}
+                className="img-fluid rounded-circle"
               />
             ) : (
-                <img src={defaultImg} alt={actor.name} />
+                <img src={defaultImg} alt={actor.name} className="img-fluid rounded-circle" />
             )}
           </li>
         ))}

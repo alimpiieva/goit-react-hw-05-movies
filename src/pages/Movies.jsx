@@ -2,6 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import getMoviesByQuery from "components/Api/ApiMoviesByQuery";
 import MoviesList from "components/MovieList/MovieList";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -42,12 +43,29 @@ const Movies = () => {
   };
 
   return (
-    <div>
-      <h1>Search Movies</h1>
-      <input type="text" value={movieId} onChange={updateQueryString} />
-      <button onClick={handleSearch}>Search</button>
-      {isLoadingQuery && <p>Loading movies...</p>}
-      {errorQuery && <p>Oops... Something went wrong...</p>}
+    <div className="container mt-4">
+      <h1 className="mb-4">Search Movies</h1>
+      <div className="input-group mb-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search by movie title"
+          aria-label="Search"
+          aria-describedby="button-addon2"
+          value={movieId}
+          onChange={updateQueryString}
+        />
+        <button
+          className="btn btn-primary"
+          type="button"
+          id="button-addon2"
+          onClick={handleSearch}
+        >
+          Search
+        </button>
+      </div>
+      {isLoadingQuery && <p className="text-center">Loading movies...</p>}
+      {errorQuery && <p className="text-danger text-center">Oops... Something went wrong...</p>}
       {moviesByQuery.length > 0 && <MoviesList movies={moviesByQuery} />}
     </div>
   );
